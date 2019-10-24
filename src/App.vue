@@ -1,22 +1,22 @@
 <template>
     <div id="app">
-        <CommentList />
+        <Search />
     </div>
 </template>
 
 <script>
-    import CommentList from './components/CommentList';
+    import Search from './components/Search';
 
     export default {
         name: 'app',
         components: {
-            CommentList
+            Search
         }
     }
 
 </script>
 
-<style>
+<style lang="scss">
     * {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
