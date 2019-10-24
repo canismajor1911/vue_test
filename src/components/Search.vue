@@ -2,13 +2,66 @@
     <div class="wrapper">
         <h1>Drink-o-pedia</h1>
         <h3>let's find a drink!</h3>
-        <input name="search" title="search" placeholder="e.g. margarita" />
+        <input
+                name="search"
+                title="search"
+                placeholder="e.g. margarita"
+                v-model="value"
+                @input="handleInput"
+        />
     </div>
 </template>
 
 <script>
+    /* eslint-disable no-console,no-unused-vars */
+
     export default {
-        name: "Search"
+        name: "Search",
+        data() {
+            return {
+                value: ''
+            }
+        },
+        methods: {
+            handleInput() {
+                fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.value}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        const drinks = response['drinks'];
+                        if (drinks) {
+                            drinks.forEach(drinkJson => {
+                                let ingredients = [];
+                                for (let i = 1; i <= 15; i++) {
+                                    const ingredient = drinkJson['strIngredient' + i];
+                                    const measure = drinkJson['strMeasure' + i];
+                                    if (ingredient) {
+                                        ingredients.push({
+                                            name: ingredient,
+                                            amount: measure
+                                        });
+                                    } else {
+                                        break;
+                                    }
+                                }
+                                const drink = {
+                                    id: drinkJson['idDrink'],
+                                    name: drinkJson['strDrink'],
+                                    category: drinkJson['strCategory'],
+                                    ingredients: ingredients,
+                                    instructions: drinkJson['strInstructions'],
+                                    glass: drinkJson['strGlass'],
+                                    alcoholic: drinkJson['strAlcoholic'],
+                                    image: drinkJson['strDrinkThumb']
+                                };
+                                console.log(drink);
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        alert('Ops! Something went wrong:(\n' + err);
+                    });
+            }
+        }
     }
 </script>
 
