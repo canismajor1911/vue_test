@@ -15,7 +15,7 @@
                         <h4>Ingredients:</h4>
                         <ul>
                             <li v-for="(ingredient) in drink.ingredients" :key="ingredient.name" >
-                                {{ ingredient.name }} - {{ ingredient.amount }}
+                                {{ ingredient.name }}<span v-if="ingredient.amount"> - </span>{{ ingredient.amount }}
                             </li>
                         </ul>
                     </div>
@@ -26,6 +26,7 @@
                         </p>
                     </div>
                 </div>
+                <p class="drink-responsibly" v-if="drink.alcoholic === 'Alcoholic'">Drink responsibly!</p>
             </div>
         </div>
     </div>
@@ -68,6 +69,16 @@
             padding: 1em;
 
             .header {
+                h2, h3 {
+                    letter-spacing: 0.1em;
+                    text-align: center;
+                }
+
+                h3 {
+                    font-weight: normal;
+                    margin-bottom: 0.5em;
+                }
+
                 .closeButton {
                     position: absolute;
                     cursor: pointer;
@@ -112,6 +123,16 @@
 
             h4 {
                 margin: 1em 0.5em 0.5em;
+            }
+
+            .details {
+                .drink-responsibly {
+                    text-align: center;
+                    margin-top: 1em;
+                    font-size: 0.7em;
+                    letter-spacing: 0.1em;
+                    font-style: italic;
+                }
             }
         }
     }
