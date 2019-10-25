@@ -19,6 +19,12 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="glass">
+                        <h4>Glass:</h4>
+                        <p>
+                            {{ drink.glass }}
+                        </p>
+                    </div>
                     <div class="instructions">
                         <h4>Instructions:</h4>
                         <p>
