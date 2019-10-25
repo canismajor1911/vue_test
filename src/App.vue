@@ -1,16 +1,37 @@
 <template>
     <div id="app">
-        <Search />
+        <Search
+                @resultsLoaded="showResultsGrid"
+                @resultsDeleted="hideResultsGrid"/>
+        <ResultsGrid v-if="loaded" :data="results"/>
     </div>
 </template>
 
 <script>
     import Search from './components/Search';
+    import ResultsGrid from './components/ResultsGrid';
 
     export default {
         name: 'app',
         components: {
-            Search
+            Search,
+            ResultsGrid
+        },
+        data() {
+            return {
+                loaded: false,
+                results: []
+            }
+        },
+        methods: {
+            showResultsGrid(results) {
+                this.results = results;
+                this.loaded = true;
+            },
+            hideResultsGrid() {
+                this.results = [];
+                this.loaded = false;
+            }
         }
     }
 
@@ -23,6 +44,7 @@
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+        outline: none !important;
     }
 
     body {
