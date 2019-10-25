@@ -27,6 +27,11 @@
         border: 1px solid #DDD;
         margin: 1em;
         cursor: pointer;
+        transition: transform 100ms ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
 
         img {
             max-width: 100%;

@@ -3,22 +3,50 @@
         <p>Here you go! Click on the cocktail that you're interested in to see more details.</p>
         <hr>
         <div class="grid">
-            <Thumbnail v-for="(drink, id) in data" :drink="drink" :key="id" />
+            <Thumbnail
+                    v-for="(drink, id) in data"
+                    :drink="drink"
+                    :key="id"
+                    @click.native="handleWindowOpen(drink)"
+            />
         </div>
+        <DetailsWindow
+                v-if="windowOpen"
+                :drink="windowData"
+                @closeWindow="windowOpen = false"/>
     </div>
 </template>
 
 <script>
+    /* eslint-disable no-console */
+
     import Thumbnail from './Thumbnail';
+    import DetailsWindow from './DetailsWindow';
 
     export default {
         name: "ResultsGrid",
         components: {
-            Thumbnail
+            Thumbnail,
+            DetailsWindow
         },
         props: {
             data: {
                 type: Array
+            }
+        },
+        data() {
+            return {
+                windowOpen: false,
+                windowData: {}
+            }
+        },
+        methods: {
+            handleWindowOpen(drink) {
+                this.windowOpen = true;
+                this.windowData = drink;
+            },
+            windowCls() {
+                console.log('ok')
             }
         }
     }
